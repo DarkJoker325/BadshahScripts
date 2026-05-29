@@ -1,14 +1,12 @@
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
-local HttpService = game:GetService("HttpService")
-
 -- SETTINGS
 local PREFIX = "Badshah-"
 local LOOTLABS_LINK = "https://lootlabs.gg/"
 local LINKVERTISE_LINK = "https://linkvertise.com/"
 
--- Number conversion table
+-- NUMBER CONVERSION
 local convert = {
     ["0"] = "X",
     ["1"] = "Z",
@@ -22,7 +20,7 @@ local convert = {
     ["9"] = "V"
 }
 
--- Generate today's key
+-- GENERATE TODAY KEY
 local function generateKey()
     local date = os.date("%d%m%Y")
     local result = ""
@@ -37,10 +35,12 @@ end
 
 local TODAY_KEY = generateKey()
 
--- UI
+-- GUI
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.CoreGui
+ScreenGui.Name = "BadshahKeySystem"
+ScreenGui.Parent = player.PlayerGui
 
+-- MAIN FRAME
 local Main = Instance.new("Frame")
 Main.Parent = ScreenGui
 Main.Size = UDim2.new(0, 420, 0, 250)
@@ -48,18 +48,40 @@ Main.Position = UDim2.new(0.5, -210, 0.5, -125)
 Main.BackgroundColor3 = Color3.fromRGB(25,25,25)
 Main.BorderSizePixel = 0
 
-local UICorner = Instance.new("UICorner", Main)
-UICorner.CornerRadius = UDim.new(0, 12)
+local MainCorner = Instance.new("UICorner")
+MainCorner.Parent = Main
+MainCorner.CornerRadius = UDim.new(0, 12)
 
+-- TITLE
 local Title = Instance.new("TextLabel")
 Title.Parent = Main
 Title.Size = UDim2.new(1,0,0,50)
 Title.BackgroundTransparency = 1
-Title.Text = "Badshah Script"
+Title.Text = "🔐 Badshah Script"
 Title.TextColor3 = Color3.fromRGB(255,255,255)
 Title.TextScaled = true
 Title.Font = Enum.Font.GothamBold
 
+-- CLOSE BUTTON
+local CloseMain = Instance.new("TextButton")
+CloseMain.Parent = Main
+CloseMain.Size = UDim2.new(0,30,0,30)
+CloseMain.Position = UDim2.new(1,-35,0,5)
+CloseMain.Text = "✕"
+CloseMain.TextScaled = true
+CloseMain.Font = Enum.Font.GothamBold
+CloseMain.BackgroundColor3 = Color3.fromRGB(255,70,70)
+CloseMain.TextColor3 = Color3.fromRGB(255,255,255)
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.Parent = CloseMain
+CloseCorner.CornerRadius = UDim.new(1,0)
+
+CloseMain.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- KEY BOX
 local KeyBox = Instance.new("TextBox")
 KeyBox.Parent = Main
 KeyBox.Size = UDim2.new(0.8,0,0,45)
@@ -71,9 +93,11 @@ KeyBox.Font = Enum.Font.Gotham
 KeyBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
 KeyBox.TextColor3 = Color3.fromRGB(255,255,255)
 
-local BoxCorner = Instance.new("UICorner", KeyBox)
+local BoxCorner = Instance.new("UICorner")
+BoxCorner.Parent = KeyBox
 BoxCorner.CornerRadius = UDim.new(0,8)
 
+-- GET KEY BUTTON
 local GetKey = Instance.new("TextButton")
 GetKey.Parent = Main
 GetKey.Size = UDim2.new(0.35,0,0,45)
@@ -84,9 +108,11 @@ GetKey.Font = Enum.Font.GothamBold
 GetKey.BackgroundColor3 = Color3.fromRGB(0,170,255)
 GetKey.TextColor3 = Color3.fromRGB(255,255,255)
 
-local GetCorner = Instance.new("UICorner", GetKey)
+local GetCorner = Instance.new("UICorner")
+GetCorner.Parent = GetKey
 GetCorner.CornerRadius = UDim.new(0,8)
 
+-- SUBMIT BUTTON
 local Submit = Instance.new("TextButton")
 Submit.Parent = Main
 Submit.Size = UDim2.new(0.35,0,0,45)
@@ -97,67 +123,132 @@ Submit.Font = Enum.Font.GothamBold
 Submit.BackgroundColor3 = Color3.fromRGB(0,255,120)
 Submit.TextColor3 = Color3.fromRGB(255,255,255)
 
-local SubmitCorner = Instance.new("UICorner", Submit)
+local SubmitCorner = Instance.new("UICorner")
+SubmitCorner.Parent = Submit
 SubmitCorner.CornerRadius = UDim.new(0,8)
 
--- Notification
+-- NOTIFICATION
 local function notify(text)
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "Badshah Script",
-        Text = text,
-        Duration = 5
-    })
+    pcall(function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Badshah Script",
+            Text = text,
+            Duration = 5
+        })
+    end)
 end
 
--- Get Key Button
+-- POPUP CHECK
+local PopupOpened = false
+
+-- GET KEY POPUP
 GetKey.MouseButton1Click:Connect(function()
+
+    if PopupOpened then
+        return
+    end
+
+    PopupOpened = true
 
     local Popup = Instance.new("Frame")
     Popup.Parent = Main
-    Popup.Size = UDim2.new(0.8,0,0,100)
+    Popup.Size = UDim2.new(0.8,0,0,120)
     Popup.Position = UDim2.new(0.1,0,0.15,0)
     Popup.BackgroundColor3 = Color3.fromRGB(35,35,35)
 
-    local PopCorner = Instance.new("UICorner", Popup)
+    local PopCorner = Instance.new("UICorner")
+    PopCorner.Parent = Popup
+    PopCorner.CornerRadius = UDim.new(0,10)
 
+    -- POPUP TITLE
+    local PopTitle = Instance.new("TextLabel")
+    PopTitle.Parent = Popup
+    PopTitle.Size = UDim2.new(1,0,0,30)
+    PopTitle.BackgroundTransparency = 1
+    PopTitle.Text = "Select Key Provider"
+    PopTitle.TextScaled = true
+    PopTitle.Font = Enum.Font.GothamBold
+    PopTitle.TextColor3 = Color3.fromRGB(255,255,255)
+
+    -- CLOSE POPUP
+    local ClosePopup = Instance.new("TextButton")
+    ClosePopup.Parent = Popup
+    ClosePopup.Size = UDim2.new(0,25,0,25)
+    ClosePopup.Position = UDim2.new(1,-30,0,5)
+    ClosePopup.Text = "✕"
+    ClosePopup.TextScaled = true
+    ClosePopup.Font = Enum.Font.GothamBold
+    ClosePopup.BackgroundColor3 = Color3.fromRGB(255,70,70)
+    ClosePopup.TextColor3 = Color3.fromRGB(255,255,255)
+
+    local ClosePopCorner = Instance.new("UICorner")
+    ClosePopCorner.Parent = ClosePopup
+    ClosePopCorner.CornerRadius = UDim.new(1,0)
+
+    ClosePopup.MouseButton1Click:Connect(function()
+        PopupOpened = false
+        Popup:Destroy()
+    end)
+
+    -- LOOTLABS BUTTON
     local Lootlabs = Instance.new("TextButton")
     Lootlabs.Parent = Popup
-    Lootlabs.Size = UDim2.new(0.4,0,0,40)
-    Lootlabs.Position = UDim2.new(0.05,0,0.3,0)
-    Lootlabs.Text = "LootLabs"
+    Lootlabs.Size = UDim2.new(0.4,0,0,45)
+    Lootlabs.Position = UDim2.new(0.05,0,0.5,0)
+    Lootlabs.Text = "🟣 LootLabs"
     Lootlabs.TextScaled = true
+    Lootlabs.Font = Enum.Font.GothamBold
+    Lootlabs.BackgroundColor3 = Color3.fromRGB(145,70,255)
+    Lootlabs.TextColor3 = Color3.fromRGB(255,255,255)
 
+    local LootCorner = Instance.new("UICorner")
+    LootCorner.Parent = Lootlabs
+    LootCorner.CornerRadius = UDim.new(0,8)
+
+    -- LINKVERTISE BUTTON
     local Linkvertise = Instance.new("TextButton")
     Linkvertise.Parent = Popup
-    Linkvertise.Size = UDim2.new(0.4,0,0,40)
-    Linkvertise.Position = UDim2.new(0.55,0,0.3,0)
-    Linkvertise.Text = "Linkvertise"
+    Linkvertise.Size = UDim2.new(0.4,0,0,45)
+    Linkvertise.Position = UDim2.new(0.55,0,0.5,0)
+    Linkvertise.Text = "🟠 Linkvertise"
     Linkvertise.TextScaled = true
+    Linkvertise.Font = Enum.Font.GothamBold
+    Linkvertise.BackgroundColor3 = Color3.fromRGB(255,120,40)
+    Linkvertise.TextColor3 = Color3.fromRGB(255,255,255)
 
+    local LinkCorner = Instance.new("UICorner")
+    LinkCorner.Parent = Linkvertise
+    LinkCorner.CornerRadius = UDim.new(0,8)
+
+    -- BUTTON ACTIONS
     Lootlabs.MouseButton1Click:Connect(function()
         setclipboard(LOOTLABS_LINK)
-        notify("Link copied in your clipboard paste it in browser")
+        notify("LootLabs link copied to clipboard")
     end)
 
     Linkvertise.MouseButton1Click:Connect(function()
         setclipboard(LINKVERTISE_LINK)
-        notify("Link copied in your clipboard paste it in browser")
+        notify("Linkvertise link copied to clipboard")
     end)
+
 end)
 
--- Submit Key
+-- SUBMIT KEY
 Submit.MouseButton1Click:Connect(function()
 
     if KeyBox.Text == TODAY_KEY then
 
         notify("Key Verified Successfully")
 
+        wait(1)
+
         ScreenGui:Destroy()
 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/TreesHateYou"))()
-
+        -- MAIN SCRIPT HERE
         print("Script Unlocked")
 
+        -- Example:
+        -- loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/TreesHateYou"))()
     else
 
         notify("Invalid Key")
