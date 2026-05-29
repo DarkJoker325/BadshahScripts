@@ -5,8 +5,8 @@ local HttpService = game:GetService("HttpService")
 
 -- SETTINGS
 local PREFIX = "Badshah-"
-local LOOTLABS_LINK = "PASTE_YOUR_LOOTLABS_LINK"
-local LINKVERTISE_LINK = "PASTE_YOUR_LINKVERTISE_LINK"
+local LOOTLABS_LINK = "https://lootlabs.gg/"
+local LINKVERTISE_LINK = "https://linkvertise.com/"
 
 -- Number conversion table
 local convert = {
