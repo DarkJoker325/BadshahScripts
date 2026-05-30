@@ -236,22 +236,23 @@ end)
 -- SUBMIT KEY
 Submit.MouseButton1Click:Connect(function()
 
-    if KeyBox.Text == TODAY_KEY then
+   if KeyBox.Text == TODAY_KEY then
+    notify("Key Verified Successfully")
 
-        notify("Key Verified Successfully")
+    task.wait(1)
 
-        wait(1)
+    ScreenGui:Destroy()
 
-        ScreenGui:Destroy()
+    print("Script Unlocked")
 
-        -- MAIN SCRIPT HERE
-        print("Script Unlocked")
+    -- Yahan apni actual script load karain
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/TreesHateYou"))()
+    end)
 
-        -- Example:
-        -- loadstring(game:HttpGet("loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/TreesHateYou"))()"))()
-    else
-
-        notify("Invalid Key")
-
+    if not success then
+        warn("Failed to load script: "..tostring(err))
     end
-end)
+else
+    notify("Invalid Key")
+end
