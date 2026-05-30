@@ -43,30 +43,32 @@ ScreenGui.Parent = player.PlayerGui
 -- MAIN FRAME
 local Main = Instance.new("Frame")
 Main.Parent = ScreenGui
-Main.Size = UDim2.new(0, 420, 0, 250)
+Main.Size = UDim2.new(0,700,0,420)
 Main.Position = UDim2.new(0.5, -210, 0.5, -125)
-Main.BackgroundColor3 = Color3.fromRGB(25,25,25)
+Main.BackgroundColor3 = Color3.fromRGB(15,15,18)
 Main.BorderSizePixel = 0
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.Parent = Main
-MainCorner.CornerRadius = UDim.new(0, 12)
+MainCorner.CornerRadius = UDim.new(0,25)
 
 -- TITLE
 local Title = Instance.new("TextLabel")
 Title.Parent = Main
-Title.Size = UDim2.new(1,0,0,50)
-Title.BackgroundTransparency = 1
-Title.Text = "🔐 Badshah Script"
+Title.Text = "🔐 Badshah Scripts"
 Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.GothamBlack
 Title.TextScaled = true
-Title.Font = Enum.Font.GothamBold
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1,-70,0,50)
+Title.Position = UDim2.new(0,10,0,0)
+Title.TextXAlignment = Enum.TextXAlignment.Left
 
 -- CLOSE BUTTON
 local CloseMain = Instance.new("TextButton")
 CloseMain.Parent = Main
-CloseMain.Size = UDim2.new(0,30,0,30)
-CloseMain.Position = UDim2.new(1,-35,0,5)
+CloseMain.Size = UDim2.new(0,40,0,40)
+CloseMain.Position = UDim2.new(1,-55,0,10)
 CloseMain.Text = "✕"
 CloseMain.TextScaled = true
 CloseMain.Font = Enum.Font.GothamBold
