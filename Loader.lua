@@ -236,7 +236,7 @@ end)
 -- SUBMIT KEY
 Submit.MouseButton1Click:Connect(function()
 
-   if KeyBox.Text == TODAY_KEY then
+if KeyBox.Text == TODAY_KEY then
     notify("Key Verified Successfully")
 
     task.wait(1)
