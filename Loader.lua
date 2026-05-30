@@ -244,7 +244,7 @@ Submit.MouseButton1Click:Connect(function()
 
         ScreenGui:Destroy()
 
-        loadstring(game:HttpGet("loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/TreesHateYou"))()"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/TreesHateYou"))()
 
     else
 
