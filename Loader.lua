@@ -38,88 +38,95 @@ local TODAY_KEY = generateKey()
 -- GUI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "BadshahKeySystem"
+ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = player.PlayerGui
 
 -- MAIN FRAME
 local Main = Instance.new("Frame")
 Main.Parent = ScreenGui
-Main.Size = UDim2.new(0,700,0,420)
-Main.Position = UDim2.new(0.5, -210, 0.5, -125)
+Main.Size = UDim2.new(0,520,0,300)
+Main.Position = UDim2.new(0.5,-260,0.5,-150)
 Main.BackgroundColor3 = Color3.fromRGB(15,15,18)
 Main.BorderSizePixel = 0
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.Parent = Main
-MainCorner.CornerRadius = UDim.new(0,25)
+MainCorner.CornerRadius = UDim.new(0,20)
 
 -- TITLE
 local Title = Instance.new("TextLabel")
 Title.Parent = Main
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1,-80,0,55)
+Title.Position = UDim2.new(0,15,0,8)
 Title.Text = "🔐 Badshah Scripts"
 Title.TextColor3 = Color3.fromRGB(255,255,255)
 Title.Font = Enum.Font.GothamBlack
 Title.TextScaled = true
-Title.BackgroundTransparency = 1
-Title.Size = UDim2.new(1,-70,0,50)
-Title.Position = UDim2.new(0,10,0,0)
 Title.TextXAlignment = Enum.TextXAlignment.Left
 
 -- CLOSE BUTTON
 local CloseMain = Instance.new("TextButton")
 CloseMain.Parent = Main
-CloseMain.Size = UDim2.new(0,40,0,40)
-CloseMain.Position = UDim2.new(1,-55,0,10)
+CloseMain.Size = UDim2.new(0,35,0,35)
+CloseMain.Position = UDim2.new(1,-45,0,10)
 CloseMain.Text = "✕"
 CloseMain.TextScaled = true
 CloseMain.Font = Enum.Font.GothamBold
-CloseMain.BackgroundColor3 = Color3.fromRGB(255,70,70)
+CloseMain.BackgroundColor3 = Color3.fromRGB(25,25,25)
 CloseMain.TextColor3 = Color3.fromRGB(255,255,255)
 
 local CloseCorner = Instance.new("UICorner")
 CloseCorner.Parent = CloseMain
 CloseCorner.CornerRadius = UDim.new(1,0)
 
-CloseMain.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
-end)
+local CloseStroke = Instance.new("UIStroke")
+CloseStroke.Parent = CloseMain
+CloseStroke.Color = Color3.fromRGB(255,70,70)
+CloseStroke.Thickness = 2
 
 -- KEY BOX
 local KeyBox = Instance.new("TextBox")
 KeyBox.Parent = Main
-KeyBox.Size = UDim2.new(0.8,0,0,45)
-KeyBox.Position = UDim2.new(0.1,0,0.32,0)
+KeyBox.Size = UDim2.new(0.82,0,0,55)
+KeyBox.Position = UDim2.new(0.09,0,0.28,0)
 KeyBox.PlaceholderText = "Enter Key"
 KeyBox.Text = ""
 KeyBox.TextScaled = true
 KeyBox.Font = Enum.Font.Gotham
-KeyBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+KeyBox.BackgroundColor3 = Color3.fromRGB(25,25,25)
 KeyBox.TextColor3 = Color3.fromRGB(255,255,255)
 
-local BoxCorner = Instance.new("UICorner")
-BoxCorner.Parent = KeyBox
-BoxCorner.CornerRadius = UDim.new(0,8)
+local KeyCorner = Instance.new("UICorner")
+KeyCorner.Parent = KeyBox
+KeyCorner.CornerRadius = UDim.new(0,12)
+
+local KeyStroke = Instance.new("UIStroke")
+KeyStroke.Parent = KeyBox
+KeyStroke.Color = Color3.fromRGB(60,60,60)
+KeyStroke.Thickness = 1.5
 
 -- GET KEY BUTTON
 local GetKey = Instance.new("TextButton")
 GetKey.Parent = Main
-GetKey.Size = UDim2.new(0.35,0,0,45)
-GetKey.Position = UDim2.new(0.1,0,0.62,0)
-GetKey.Text = "Get Key"
+GetKey.Size = UDim2.new(0.35,0,0,50)
+GetKey.Position = UDim2.new(0.1,0,0.65,0)
+GetKey.Text = "🔑 Get Key"
 GetKey.TextScaled = true
 GetKey.Font = Enum.Font.GothamBold
-GetKey.BackgroundColor3 = Color3.fromRGB(0,170,255)
+GetKey.BackgroundColor3 = Color3.fromRGB(0,140,255)
 GetKey.TextColor3 = Color3.fromRGB(255,255,255)
 
 local GetCorner = Instance.new("UICorner")
 GetCorner.Parent = GetKey
-GetCorner.CornerRadius = UDim.new(0,8)
+GetCorner.CornerRadius = UDim.new(0,12)
 
 -- SUBMIT BUTTON
 local Submit = Instance.new("TextButton")
 Submit.Parent = Main
-Submit.Size = UDim2.new(0.35,0,0,45)
-Submit.Position = UDim2.new(0.55,0,0.62,0)
-Submit.Text = "Submit Key"
+Submit.Size = UDim2.new(0.35,0,0,50)
+Submit.Position = UDim2.new(0.55,0,0.65,0)
+Submit.Text = "✈ Submit Key"
 Submit.TextScaled = true
 Submit.Font = Enum.Font.GothamBold
 Submit.BackgroundColor3 = Color3.fromRGB(0,255,120)
@@ -127,7 +134,12 @@ Submit.TextColor3 = Color3.fromRGB(255,255,255)
 
 local SubmitCorner = Instance.new("UICorner")
 SubmitCorner.Parent = Submit
-SubmitCorner.CornerRadius = UDim.new(0,8)
+SubmitCorner.CornerRadius = UDim.new(0,12)
+
+-- CLOSE FUNCTION
+CloseMain.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
 
 -- NOTIFICATION
 local function notify(text)
